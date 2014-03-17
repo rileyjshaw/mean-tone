@@ -15,7 +15,7 @@ def average_frequency(rate, data):
     k = np.arange(sample_length)
     period = sample_length / rate
     freqs = (k / period)[range(sample_length / 2)] #right-side frequency range
-    fourier = (fft.fft(data * np.hanning(sample_length)) / sample_length)[range(sample_length / 2)] #normalize & clip to right side
+    fourier = abs(fft.fft(data * np.hanning(sample_length)) / sample_length)[range(sample_length / 2)] #normalize & clip to right side
     power = np.power(fourier, 2.0)
     return sum(power * freqs) / sum(power)
 

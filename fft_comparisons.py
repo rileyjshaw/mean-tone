@@ -35,7 +35,7 @@ def hanning_real_plot(data, rate):
 
 single_tone = np.array(composer.generate_tone_series([440], 1), dtype = np.int16)
 series_tone = np.array(composer.generate_tone_series([100, 200, 400, 800, 1600], 1), dtype = np.int16)
-chord_tone = np.array(composer.generate_tone_series([[330, 440]], 1), dtype = np.int16)
+chord_tone = np.array(composer.generate_tone_series([[261.63, 329.63, 392.00]], 2), dtype = np.int16)
 song_rate, song = wav.read('wav/bass.wav')
 
 for audio in [single_tone, series_tone, chord_tone, song]:
