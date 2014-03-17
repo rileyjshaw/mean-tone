@@ -1,12 +1,10 @@
-import pylab as pl
-import numpy as np
+import numpy as np, composer
 import scipy.io.wavfile as wav
 import scipy.fftpack as fft
-import composer
 from itertools import izip_longest
 
 import_rate, import_data = wav.read('wav/flute.wav')
-import_bpm = 62
+import_bpm = 62 #manually set
 
 def grouper(iterable, n, fillvalue = None):
     args = [iter(iterable)] * n
@@ -29,11 +27,11 @@ def quarter_note_frequencies(rate, data, bpm):
     for slice in grouper(data, slice_size, 0):
         beat_counter += 1
         print unicode(beat_counter * 100 / beats) + '% completed'
-        notes.append(average_frequency(rate, slice))
+        notes.append(average_frequency(rate * 1.0, slice))
     return notes
 
 def create_wav(rate, data, bpm):
     duration = 60.0 / bpm #seconds per beat
-    wav.write('wav/flute_demo.wav', rate, np.array(composer.generate_tone_series(data, duration), dtype = np.int16))
+    wav.write('wav/flute_avg.wav', rate, np.array(composer.generate_tone_series(data, duration), dtype = np.int16))
 
 create_wav(import_rate, quarter_note_frequencies(import_rate, import_data, import_bpm), import_bpm)

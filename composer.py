@@ -1,3 +1,5 @@
+# Still very much a work in progress.
+
 import math
 import numpy as np
 import scipy.io.wavfile as wav
