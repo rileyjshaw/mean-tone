@@ -5,19 +5,21 @@ import scipy.fftpack as fft
 import composer
 from itertools import izip_longest
 
+import_rate, import_data = wav.read('wav/flute.wav')
+import_bpm = 62
+
 def grouper(iterable, n, fillvalue = None):
     args = [iter(iterable)] * n
     return izip_longest(fillvalue = fillvalue, *args)
 
 def average_frequency(rate, data):
-    fourier = fft.rfft((data * np.hanning(len(data))))
-    abs_fourier = np.abs(fourier)
+    sample_length = len(data)
+    k = np.arange(sample_length)
+    period = sample_length / rate
+    freqs = (k / period)[range(sample_length / 2)] #right-side frequency range
+    fourier = (fft.fft(data * np.hanning(sample_length)) / sample_length)[range(sample_length / 2)] #normalize & clip to right side
     power = np.power(fourier, 2.0)
-    freqs = fft.rfftfreq(len(fourier), 1.0 / rate)
     return sum(power * freqs) / sum(power)
-
-def median_frequency(rate, data):
-    return 0
 
 def quarter_note_frequencies(rate, data, bpm):
     notes = []
@@ -31,16 +33,7 @@ def quarter_note_frequencies(rate, data, bpm):
     return notes
 
 def create_wav(rate, data, bpm):
-    chord_list = []
     duration = 60.0 / bpm #seconds per beat
-    for beat in data:
-        chord_list.append([beat, duration, 6000])
-    wav.write('demo.wav', rate, np.array(composer.generate_song(chord_list), dtype = np.int16))
-
-import_rate, import_data = wav.read('flute.wav')
-import_bpm = 62
+    wav.write('wav/flute_demo.wav', rate, np.array(composer.generate_tone_series(data, duration), dtype = np.int16))
 
 create_wav(import_rate, quarter_note_frequencies(import_rate, import_data, import_bpm), import_bpm)
-
-#pl.semilogy(freqs, abs_fourier)
-#pl.show()

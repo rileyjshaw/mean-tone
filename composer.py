@@ -84,8 +84,14 @@ def generate_chord ( frequencies, duration, max_volume, sustain_volume = sentine
 
     return tone
 
-def generate_song( chord_list ):
-    return reduce( lambda accum, current: accum + generate_chord( *current ), chord_list, [] )
+def generate_song(chord_list):
+    return reduce(lambda accum, current: accum + generate_chord( *current ), chord_list, [])
+
+def generate_tone_series(data, duration):
+    chord_list = []
+    for tone in data:
+        chord_list.append([tone, duration, 6000])
+    return generate_song(chord_list)
 
 '''
 #Usage example:
