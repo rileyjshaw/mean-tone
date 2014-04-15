@@ -4,7 +4,7 @@ In a far-off galaxy, where alien ears can only hear the _average frequency_ of t
 
 As Plato and Einstein must have done before my time, I spent many sleepness nights tortured by this question. With this repo, I'm taking it head-on.
 
-I blogged about it [here]().
+I blogged about it [here](http://www.rileyjshaw.com/taking-the-average-tone/).
 
 ## Usage
 Open __main__.py and change `'wav/flute.wav'` to your input file, `'wav/flute_avg.wav'` to your output file, and `import_bpm` to your song's BPM.
