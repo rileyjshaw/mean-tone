@@ -7,7 +7,7 @@ As Plato and Einstein must have done before my time, I spent many sleepness nigh
 I blogged about it [here](http://www.rileyjshaw.com/blog/taking-the-average-tone/).
 
 ## Usage
-Open __main__.py and change `'wav/flute.wav'` to your input file, `'wav/flute_avg.wav'` to your output file, and `import_bpm` to your song's BPM.
+Open \__main__.py and change `'wav/flute.wav'` to your input file, `'wav/flute_avg.wav'` to your output file, and `import_bpm` to your song's BPM.
 
 ## Troubleshooting
 If you're getting weird errors about your input file, run it through Audacity and export it __with no metadata__. It's scipy's fault, not mine.
